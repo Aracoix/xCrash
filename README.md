@@ -1,3 +1,4 @@
+[！[]（https://www.jitpack.io/v/Aracoix/xCrash.svg）]（https://www.jitpack.io/#Aracoix/xCrash）
 <p align="center"><img src="doc/xcrash_logo.png" alt="xCrash Logo" width="450px"></p>
 
 # xCrash
