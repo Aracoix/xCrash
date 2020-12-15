@@ -52,6 +52,7 @@ class JavaCrashHandler implements UncaughtExceptionHandler {
     private String appId;
     private String appVersion;
     private boolean rethrow;
+    private boolean finishAll;
     private String logDir;
     private int logcatSystemLines;
     private int logcatEventsLines;
@@ -71,7 +72,7 @@ class JavaCrashHandler implements UncaughtExceptionHandler {
         return instance;
     }
 
-    void initialize(int pid, String processName, String appId, String appVersion, String logDir, boolean rethrow,
+    void initialize(int pid, String processName, String appId, String appVersion, String logDir, boolean rethrow,boolean finishAll,
                     int logcatSystemLines, int logcatEventsLines, int logcatMainLines,
                     boolean dumpFds, boolean dumpNetworkInfo, boolean dumpAllThreads, int dumpAllThreadsCountMax, String[] dumpAllThreadsWhiteList,
                     ICrashCallback callback) {
@@ -81,6 +82,7 @@ class JavaCrashHandler implements UncaughtExceptionHandler {
         this.appVersion = appVersion;
         this.rethrow = rethrow;
         this.logDir = logDir;
+        this.finishAll = finishAll;
         this.logcatSystemLines = logcatSystemLines;
         this.logcatEventsLines = logcatEventsLines;
         this.logcatMainLines = logcatMainLines;
@@ -116,9 +118,12 @@ class JavaCrashHandler implements UncaughtExceptionHandler {
                 defaultHandler.uncaughtException(thread, throwable);
             }
         } else {
-            ActivityMonitor.getInstance().finishAllActivities();
-            Process.killProcess(this.pid);
-            System.exit(10);
+            if (this.finishAll){
+                ActivityMonitor.getInstance().finishAllActivities();
+                Process.killProcess(this.pid);
+                System.exit(10);
+            }
+
         }
     }
 

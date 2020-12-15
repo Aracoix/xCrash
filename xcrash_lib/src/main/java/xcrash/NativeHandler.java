@@ -38,6 +38,7 @@ class NativeHandler {
 
     private Context ctx;
     private boolean crashRethrow;
+    private boolean finishAll;
     private ICrashCallback crashCallback;
     private boolean anrEnable;
     private boolean anrCheckProcessState;
@@ -59,6 +60,7 @@ class NativeHandler {
                    String logDir,
                    boolean crashEnable,
                    boolean crashRethrow,
+                   boolean finishAll,
                    int crashLogcatSystemLines,
                    int crashLogcatEventsLines,
                    int crashLogcatMainLines,
@@ -98,6 +100,7 @@ class NativeHandler {
 
         this.ctx = ctx;
         this.crashRethrow = crashRethrow;
+        this.finishAll = finishAll;
         this.crashCallback = crashCallback;
         this.anrEnable = anrEnable;
         this.anrCheckProcessState = anrCheckProcessState;
@@ -209,7 +212,7 @@ class NativeHandler {
             }
         }
 
-        if (!NativeHandler.getInstance().crashRethrow) {
+        if (NativeHandler.getInstance().finishAll) {
             ActivityMonitor.getInstance().finishAllActivities();
         }
     }

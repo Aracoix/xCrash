@@ -153,6 +153,7 @@ public final class XCrash {
                 params.appVersion,
                 params.logDir,
                 params.javaRethrow,
+                params.finishAll,
                 params.javaLogcatSystemLines,
                 params.javaLogcatEventsLines,
                 params.javaLogcatMainLines,
@@ -193,6 +194,7 @@ public final class XCrash {
                 params.logDir,
                 params.enableNativeCrashHandler,
                 params.nativeRethrow,
+                params.finishAll,
                 params.nativeLogcatSystemLines,
                 params.nativeLogcatEventsLines,
                 params.nativeLogcatMainLines,
@@ -326,6 +328,7 @@ public final class XCrash {
         //java crash
         boolean        enableJavaCrashHandler      = true;
         boolean        javaRethrow                 = true;
+        boolean        finishAll                   = true;
         int            javaLogCountMax             = 10;
         int            javaLogcatSystemLines       = 50;
         int            javaLogcatEventsLines       = 50;
@@ -372,6 +375,10 @@ public final class XCrash {
             return this;
         }
 
+        public InitParameters setFinishAll(boolean finishAll){
+            this.finishAll = finishAll;
+            return this;
+        }
         /**
          * Set the maximum number of Java crash log files to save in the log directory. (Default: 10)
          *
